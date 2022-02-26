@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-# Data cleaning =============================================================================================|
+# Data cleaning 
 def clean_data(df):
     from pandas import DataFrame, to_datetime, DatetimeIndex
     
@@ -87,7 +87,7 @@ def clean_data(df):
 
 
 
-# Proportion of a variable ==================================================================================|
+# Proportion of a variable 
 def prop_table(df, count_var, desc = 2):
     """
     parameters
@@ -111,7 +111,8 @@ def prop_table(df, count_var, desc = 2):
     return(prop)
 
 
-# Figuresize ================================================================================================|
+
+# Figuresize 
 def figsize(width_f, height_f):
     """
     width_f: [int] width of the plot.
@@ -124,7 +125,7 @@ def figsize(width_f, height_f):
     
     
     
-# labels ====================================================================================================|
+# labels 
 def labs(xlabel = None, ylabel = None, title = None, axis_size = None, title_size = None, t_loc = "center"):
     """
     parameters
@@ -159,7 +160,8 @@ def labs(xlabel = None, ylabel = None, title = None, axis_size = None, title_siz
     return(lx, ly, lt)
 
 
-# Annotate on bar plot ========================================================================================|
+
+# Annotate on bar plot 
 def bar_text(df, ax, count_var = None, prop_var = None, colr = "black", fs = 13, perc = True, single = False, hue = False, other = False):
     """
     parameters
@@ -179,7 +181,7 @@ def bar_text(df, ax, count_var = None, prop_var = None, colr = "black", fs = 13,
     -------
     annotation of text on a barplot.
     """
-    # Annotate on a bar plot without hue ----------------------------------------------------------------------|
+    # Annotate on a bar plot without hue ------------------------------------------------------------------------
     if single:
         for index, row in df.iterrows():
             h = row[count_var]
@@ -191,7 +193,7 @@ def bar_text(df, ax, count_var = None, prop_var = None, colr = "black", fs = 13,
                     ax.text(row.name, row[count_var], row[prop_var], color = colr, ha = "center", fontsize = fs)
     else:
         None
-    # Annotate on a hue bar plot -------------------------------------------------------------------------------|    
+    # Annotate on a hue bar plot ---------------------------------------------------------------------------------  
     if hue:
         for p in ax.patches:
             h = p.get_height()
@@ -207,7 +209,7 @@ def bar_text(df, ax, count_var = None, prop_var = None, colr = "black", fs = 13,
                 ax.annotate(value, (x, y), ha = "center", color = colr)
     else:
         None
-    # Annotate Another column variable on a bar chart ------------------------------------------------------------|    
+    # Annotate Another column variable on a bar chart -------------------------------------------------------------   
     if other:
         show = df[prop_var].to_list()
         i = 0
@@ -229,7 +231,7 @@ def bar_text(df, ax, count_var = None, prop_var = None, colr = "black", fs = 13,
         
         
 
-# Function to create box_plot subplots ================================================================|
+# Function to create box_plot subplots
 def sub_boxplot(df, y_col, axis = None, ylabel = None, title = None):
     """
     df [DataFrame]
@@ -248,7 +250,7 @@ def sub_boxplot(df, y_col, axis = None, ylabel = None, title = None):
 
 
 
-# Function to analyse the Year and month Enrollment ======================================================|
+# Function to analyse the Year and month Enrollment 
 def period_exp(df, period_col, col_name, pal = None, title_f = None, tbl = True, plot = True):
     """
     parameter
@@ -299,7 +301,7 @@ def period_exp(df, period_col, col_name, pal = None, title_f = None, tbl = True,
             
             
 
-# subplots of month by facet year =======================================================================|
+# subplots of month by facet year 
 def year_month(df, year, axis, xlab_c = False, tick_lab = False):
     """
     parameters
@@ -339,7 +341,7 @@ def year_month(df, year, axis, xlab_c = False, tick_lab = False):
 
 
 
-# Year, month and country plot ============================================================================================|
+# Year, month and country plot 
 def period_country(df, country, axis = None,  title = None, legend_rm = True, title_rm = True, xlabel_in = False):
     """
     parameters
@@ -375,8 +377,9 @@ def period_country(df, country, axis = None,  title = None, legend_rm = True, ti
 
 
 # Function for Numerical Distribution
-def subplots_n(df, x_col = None, y_col = None, plt_type = None, hue_f = None, pal = None, axis = None, colr = None, bins_f = "auto", kde_f = False, element_f = "bars",
-               title_f = None, legend_rm = False, title_rm = True, xlab_in = True, x_lab = None, ylab_in = True, y_lab = None, x_rot = None):
+def subplots_n(df, x_col = None, y_col = None, plt_type = None, hue_f = None, pal = None, axis = None, colr = None, 
+               bins_f = "auto", kde_f = False, element_f = "bars", title_f = None, legend_rm = False, title_rm = True,
+               xlab_in = True, x_lab = None, ylab_in = True, y_lab = None, x_rot = None):
     """
     parameters
     ----------
@@ -402,7 +405,7 @@ def subplots_n(df, x_col = None, y_col = None, plt_type = None, hue_f = None, pa
     """
     from seaborn import histplot, boxplot, barplot, countplot
     
-    # Plot --------------------------------------------------------------------------------------------------------|
+    # Plot ---------------------------------------------------------------------------------------------------------
     if plt_type == "histogram":
         p = histplot(data = df, x = x_col, y = y_col, hue = hue_f, palette = pal, color= colr, bins= bins_f, kde= kde_f, element= element_f,  ax = axis)
     elif plt_type == "boxplot":
@@ -414,7 +417,7 @@ def subplots_n(df, x_col = None, y_col = None, plt_type = None, hue_f = None, pa
     else:
         raise Exception(f"argument `plt_type` can be any of [histogram, boxplot, bar, countplot] but not {plt_type}")
         
-    # Axis labels, title and legend ---------------------------------------------------------------------------------|  
+    # Axis labels, title and legend ----------------------------------------------------------------------------------  
     axis.get_legend().remove() if legend_rm else None
     
     p.set_title("") if title_rm else p.set_title(title_f, size = 17)
@@ -427,7 +430,8 @@ def subplots_n(df, x_col = None, y_col = None, plt_type = None, hue_f = None, pa
     return p
 
 
-# Statistical summary of Customer's Age group and Anomunt spent on each Products  =============================================|
+
+# Statistical summary of Customer's Age group and Anomunt spent on each Products  
 def age_stat(df, gp_var, sumy_var, pal = None, drop = False):
     """
     parameters
@@ -474,9 +478,7 @@ def age_stat(df, gp_var, sumy_var, pal = None, drop = False):
 
 
 
-
-
-# Customer's age group and product purchased summary  ===================================================================|
+# Customer's age group and product purchased summary  
 def age_purchase(df, gp_var, sumy_var, pal_f = None):
     """
     parameter
@@ -495,9 +497,8 @@ def age_purchase(df, gp_var, sumy_var, pal_f = None):
     from regex import sub
     
     f_tbl = df.groupby(gp_var)[sumy_var].sum().reset_index(name = "Sum")
-    # -----------------------------------------------------------------------------------------------
-#     title = "Total Number Of Customer" if lab == "Total" else f"Customer {lab}"
     
+    # -----------------------------------------------------------------------------------------------
     til = sub(r"([A-Z])", r" \1", sumy_var).replace("Num", "").replace("Purchases", "").strip()
     title = "Total Number Of Customer" if sumy_var == "Total_Purchase" else f"Customer {til}"
     lab = til if sumy_var != "Total_Purchase" else "Total"
@@ -513,8 +514,7 @@ def age_purchase(df, gp_var, sumy_var, pal_f = None):
     
     
     
-    
-# The Summary of Customers Age and Campaign performance =======================================================================
+# The Summary of Customers Age and Campaign performance 
 def age_campaign(df, gp_var, pal = None, response = False, hue_ord= None):
     """
     parameter
@@ -537,12 +537,12 @@ def age_campaign(df, gp_var, pal = None, response = False, hue_ord= None):
     f_tbl = df.groupby([gp_var, "Age_cat"])[gp_var].value_counts()
     f_tbl.index = f_tbl.index.droplevel(0)
     f_tbl = f_tbl.reset_index(name = "count")
-    # --------------------------------------------------------------+
+    
     f_tbl["prop_by_age"] = nan
     
     for i in f_tbl["Age_cat"].unique():
         f_tbl.loc[f_tbl["Age_cat"] == i, "prop_by_age"] = round(f_tbl.loc[f_tbl["Age_cat"] == i]["count"] / f_tbl.loc[f_tbl["Age_cat"] == i]["count"].sum() * 100, 1)
-    # --------------------------------------------------------------+
+    
     no = " ".join([i for i in gp_var if i.isdigit()])
     camp_til = {"1": "First", "2": "Second", "3": "Third", "4": "Fourth", "5": "Fifth"}
     
@@ -560,8 +560,7 @@ def age_campaign(df, gp_var, pal = None, response = False, hue_ord= None):
         
         
         
-        
-# income correlations with other variables ==========================================================        
+# income correlations with other variables         
 def income_corr(df, only_df = False, variables = None, only_iv = True):
     """
     parameters
@@ -607,7 +606,7 @@ def income_corr(df, only_df = False, variables = None, only_iv = True):
     
     
 
-# variable summary ==============================================================================
+# variable summary 
 def var_sumy(df, var, fun = "sum", pals = None, x_lab = None, y_lab = None, title_f = None):
     """
     parameters
@@ -647,7 +646,7 @@ def var_sumy(df, var, fun = "sum", pals = None, x_lab = None, y_lab = None, titl
     
     
     
-# Grouped product summary ====================================================================================================|
+# Grouped product summary 
 def products_vars(df, gp_var, pals = None, rot = None):
     """
     parameter
@@ -687,6 +686,7 @@ def products_vars(df, gp_var, pals = None, rot = None):
     return(f_df)
 
 
+
 # summary of purchase by country
 def purchase_country(df, agg_var):
     """
@@ -722,7 +722,7 @@ def purchase_country(df, agg_var):
     
     
 
-# Campaign Count ========================================================================================================|
+# Campaign Count 
 def campaign_count(df, campaign, axi, x_labc = "", y_labc = "", palc = None):
     """
     parameter
@@ -755,7 +755,7 @@ def campaign_count(df, campaign, axi, x_labc = "", y_labc = "", palc = None):
     
 
     
-# influence of campaign on each products =====================================================================================|
+# influence of campaign on each products 
 def campaign_product(df, campaign):
     """
     df [DataFrame]
